@@ -4,6 +4,6 @@ class CreateCards < ActiveRecord::Migration
       t.string :question
       t.string :answer
       t.belongs_to :deck
-    end
+    end 
   end
 end
