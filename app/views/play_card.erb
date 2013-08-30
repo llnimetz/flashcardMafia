@@ -1,0 +1,9 @@
+<h1>You are playing Deck: <%=@deck.title.capitalize%></h1>
+<div id="guessing card">
+<%=@current_card.question%>
+<form action="/card/<%=@current_card.id%>/<%=@round.id%>" method="post">
+  <input type="text" name="guess_input" placeholder="Guess here!">
+  <input type="submit">
+</form>
+
+</div>
