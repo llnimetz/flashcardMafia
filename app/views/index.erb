@@ -1,23 +1,38 @@
 <div class="container">
-  <h1>Welcome to Sinatra!</h1>
-  <p>Hello, world!</p>
+  <h1>Welcome to Flashcard Generator!</h1>
 
-  <table>
-    <tr>
-      <th>File Description</th>
-      <th>File Location</th>
-    </tr>
-    <tr>
-      <td>This view file</td>
-      <td><code><%= __FILE__.gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The layout file</td>
-      <td><code><%= File.expand_path('../layout.erb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The current controller</td>
-      <td><code><%= File.expand_path('../../controllers/index.rb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-  </table>
+
+<table >
+
+  <form action="/user/login" method="post">
+  
+  <tr><p> Please Login: </p>
+  <td><input type="text" name=":email" placeholder = "email"></td>
+  <tr><td><input type="password" name=":password" placeholder="password"></td>
+   <tr> <td><input type="Submit" value="Login"></td>
+  </form>
+</table>
+
+<br>
+
+
+<table >
+
+  <form action="/user/create" method="post">
+  
+  <tr><p> Please Signup: </p>
+  <td><input type="text" name="email" placeholder = "email"></td>
+  <tr><td><input type="password" name="password" placeholder="password"></td>
+  <tr><td><input type="password" name="password_reconfirm" placeholder="Reconfirm Password"></td>
+  <tr><td><input type="Submit" value="Signup!"></td>
+  </form>
+</table>
+
+
+  </form>
+</table>
+
+
+
+
 </div>
