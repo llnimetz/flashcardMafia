@@ -2,21 +2,34 @@ get '/' do
   # Look in app/views/index.erb
 
   erb :index
+
+
 end
 
 post '/user/create' do
 
-  User.create(params[:email, :password])
+  @user = User.new(params[:email])
+  @user.password = params[:password]
+  @user.save!
+
+
 
   redirect to "/home"
 end
 
 
 post '/user/login' do 
-# Self.authenticate params
 
-redirect to "/home"
+User.authenticate params
+p "-----"
+p @valid
+if @valid 
+  erb :home
+
+else erb :index
+  end
 end
+
 
 get '/home' do 
 
@@ -25,7 +38,7 @@ end
 
 
 get '/home/play' do
-  
+
   erb :play_card 
 end
 

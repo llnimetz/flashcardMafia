@@ -11,6 +11,9 @@
   <tr><td><input type="password" name=":password" placeholder="password"></td>
    <tr> <td><input type="Submit" value="Login"></td>
   </form>
+  <% if @valid  %>
+  <%= "Username and password invalid"%>
+  <%end%>
 </table>
 
 <br>
