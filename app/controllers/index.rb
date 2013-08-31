@@ -25,8 +25,8 @@ end
 
 
 get '/home/play' do
-
-  erb :play
+  
+  erb :play_card 
 end
 
 
