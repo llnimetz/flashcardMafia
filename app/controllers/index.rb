@@ -9,14 +9,20 @@ get '/' do
 end
 
 post '/user/create' do
+
   if confirm_password?(params[:password], params[:password_reconfirm]) 
-    @user = User.new(email: params[:email]) 
-    @user.password = params[:password]
-    @user.save!
-    redirect to "/home"
+    new_user = User.new(email: params[:email]) 
+    new_user.password = params[:password]  
+      if new_user.save
+        redirect to "/home"
+      else 
+        @broadcast = new_user.errors.messages
+
+        erb :index
+      end
   else 
-    puts "Passwords do not match. Please try again!"
     @email = params[:email]
+    @broadcast = "Passwords do not match. Please try again!"
 
     erb :index
   end
@@ -27,14 +33,13 @@ end
 
 post '/user/login' do 
 
-User.authenticate params
-p "-----"
-p @valid
-if @valid 
-  erb :home
+ @user = User.find_by_email(params[:email])
+    if @user.password == params[:password]
+      log_in(@user.id)
+    else
+      redirect to '/'
+    end
 
-else erb :index
-  end
 end
 
 

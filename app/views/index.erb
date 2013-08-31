@@ -4,11 +4,13 @@
 
 <table >
 
+
+
   <form action="/user/login" method="post">
   
   <tr><p> Please Login: </p>
-  <td><input type="text" name=":email" placeholder = "email"></td>
-  <tr><td><input type="password" name=":password" placeholder="password"></td>
+  <td><input type="text" name="email" placeholder = "email"></td>
+  <tr><td><input type="password" name="password" placeholder="password"></td>
    <tr> <td><input type="Submit" value="Login"></td>
   </form>
   <% if @valid  %>
@@ -20,7 +22,7 @@
 
 
 <table >
-
+  <p> <%= @broadcast %> </p>
   <form action="/user/create" method="post">
   
   <tr><p> Please Signup: </p>
