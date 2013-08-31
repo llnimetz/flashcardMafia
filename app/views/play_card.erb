@@ -1,4 +1,7 @@
 <h1>You are playing Deck: <%=@deck.title.capitalize%></h1>
+<% if @guess %>
+  <%= @result %>
+<% end %>
 <div id="guessing card">
 <%=@current_card.question%>
 <form action="/card/<%=@current_card.id%>/<%=@round.id%>" method="post">
