@@ -8,8 +8,8 @@ Card.create(question: "What is the capitol of Nebraska?", answer: "Lincoln", dec
 Card.create(question: "Which cohort is named after a bird?", answer: "Purple Martins", deck_id: b.id)
 Card.create(question: "Which cohort has the coolest members?", answer: "Mule Deer", deck_id: b.id)
 
-c = User.new(email: "my@email.com", password_hash: "password")
-
+c = User.new(email: "my@email.com")
+c.password = "password"
 c.save
 
 Round.create(deck_id: a.id, user_id: c.id)
