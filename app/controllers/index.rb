@@ -9,14 +9,19 @@ get '/' do
 end
 
 post '/user/create' do
+  if confirm_password?(params[:password], params[:password_reconfirm]) 
+    @user = User.new(email: params[:email]) 
+    @user.password = params[:password]
+    @user.save!
+    redirect to "/home"
+  else 
+    puts "Passwords do not match. Please try again!"
+    @email = params[:email]
 
-  @user = User.new(params[:email])
-  @user.password = params[:password]
-  @user.save!
+    erb :index
+  end
 
-
-
-  redirect to "/home"
+  
 end
 
 
