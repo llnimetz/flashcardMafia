@@ -35,7 +35,8 @@ post '/user/login' do
 
  @user = User.find_by_email(params[:email])
     if @user.password == params[:password]
-      log_in(@user.id)
+      session[:user_id] = @user.id
+      redirect '/home'
     else
       redirect to '/'
     end
