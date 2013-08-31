@@ -1,4 +1,5 @@
 helpers do
+  attr_accessor :cards
 
   def login_in(user_id)
     session[:user_id] = user_id
@@ -23,7 +24,16 @@ helpers do
 
   def shuffle_deck(deck)
     to_shuffle = deck.cards.dup
-    to_shuffle.shuffle!
+    cards = to_shuffle.shuffle!
+    card_ids = []
+    cards.each do |c|
+      card_ids << c.id
+    end
+    card_ids
+  end
+
+  def set_current_card
+    session[:cards].pop
   end
 
 end

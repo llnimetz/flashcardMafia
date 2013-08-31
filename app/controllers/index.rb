@@ -1,3 +1,5 @@
+enable :session
+
 get '/' do
   # Look in app/views/index.erb
 
@@ -32,6 +34,7 @@ end
 
 
 get '/home' do 
+  @deck = Deck.all
 
   erb :home
 end
@@ -51,18 +54,21 @@ end
 
 post '/deck/:id' do
   round = Round.create(deck_id: params[:id], user_id: session[:user_id])
-  redirect '/round' + round.id
+  @deck = Deck.find(round.deck_id)
+  session[:cards] = shuffle_deck(@deck) 
+  redirect "/round/#{round.id}"
 end
+
+
 
 
 get '/round/:id' do
   @round = Round.find(params[:id])
   @deck = Deck.find(@round.deck_id)
-  @cards = shuffle_deck(@deck)
-  if @cards.empty?
+  if session[:cards].empty?
     erb :finished_round
   else
-    @current_card = @cards.pop
+    @current_card = Card.find(set_current_card)
     erb :play_card
   end
 end
@@ -70,8 +76,7 @@ end
 post '/card/:id/:round_id' do
   @current_card = Card.find(params[:id])
   @round = Round.find(params[:round_id])
-  @guess = Guess.new(round_id: @round.id, guess_input: params["guess_input"])
-  
+  @guess = Guess.new(round_id: @round.id, guess_input: params["guess_input"]) 
   if @current_card.answer == @guess.guess_input
     @guess.result = true
   else
