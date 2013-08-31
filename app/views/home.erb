@@ -1,12 +1,19 @@
-<form method="get" action="/home/history">
+<div class="container">
+<a href="/home/history">View previous round stats</a>
+<!-- <form method="get" action="/home/history">
 <input type="submit" value= "view history" name="history">
-</form>
+</form> -->
 
+<section id="deck_selection_display">
+  <h3>Select a deck:</h3>
 <% @deck.each do |d| %>
+<%= d.title %>:
 <form method="post" action="/deck/<%= d.id %>">
-<input type="submit" value= "<%= d.title %>"  name="play">
+<input type="submit" value= "Start Round"  name="play">
 </form>
 <br>
 <% end %>
+</section>
 
+</div>
 

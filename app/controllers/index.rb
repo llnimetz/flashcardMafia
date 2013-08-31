@@ -97,6 +97,7 @@ post '/card/:id/:round_id' do
   @current_card = Card.find(params[:id])
   @round = Round.find(params[:round_id])
   @guess = Guess.new(round_id: @round.id, guess_input: params["guess_input"]) 
+  
   if @current_card.answer.downcase == @guess.guess_input.downcase
     @guess.result = true
   else
