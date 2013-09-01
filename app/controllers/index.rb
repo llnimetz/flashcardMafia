@@ -70,6 +70,14 @@ post '/deck/:id' do
   redirect "/round/#{round.id}/"
 end
 
+get '/round/stats/:id' do
+  @round = Round.find(params[:id])
+  @stats = @round.guesses
+
+
+  erb :round_stats
+end
+
 
 get '/round/:id/:guess_id?' do
   @round = Round.find(params[:id])
@@ -101,15 +109,6 @@ get '/round/:id/:guess_id?' do
     erb :play_card
   end
 
-end
-
-
-get '/round/:id/stats' do
-  @round = Round.find(params[:id])
-  @stats = @round.guesses
-  
-
-  erb :_round_stats
 end
 
 
