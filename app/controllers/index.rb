@@ -1,4 +1,5 @@
 enable :session
+require 'csv'
 
 get '/' do
   if logged_in?
@@ -43,6 +44,7 @@ post '/user/login' do
     end
 
 end
+
 
 
 get '/home' do 
