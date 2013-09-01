@@ -79,6 +79,7 @@ post '/deck/:id' do
 end
 
 get '/round/stats/:id' do
+  log_out
   @round = Round.find(params[:id])
   @stats = @round.guesses
 
