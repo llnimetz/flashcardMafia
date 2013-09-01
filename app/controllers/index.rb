@@ -1,10 +1,11 @@
 enable :session
 
 get '/' do
-  # Look in app/views/index.erb
-
-  erb :index
-
+  if logged_in?
+    redirect to '/home'
+  else
+    erb :index
+  end
 
 end
 
@@ -17,12 +18,11 @@ post '/user/create' do
         redirect to "/home"
       else 
         @broadcast = new_user.errors.messages
-
         erb :index
       end
   else 
     @email = params[:email]
-    @broadcast = "Passwords do not match. Please try again!"
+    @failed_login_message = "Passwords do not match. Please try again!"
 
     erb :index
   end
@@ -38,6 +38,7 @@ post '/user/login' do
       session[:user_id] = @user.id
       redirect '/home'
     else
+
       redirect to '/'
     end
 
@@ -45,6 +46,7 @@ end
 
 
 get '/home' do 
+  login_control
   @deck = Deck.all
 
   erb :home
@@ -52,18 +54,24 @@ end
 
 
 get '/home/play' do
-
+  login_control
   erb :play_card 
 end
 
 
 get '/home/history' do
-
+  login_control
   erb :history
+end
+
+get '/logout' do
+  log_out
+  redirect to '/'
 end
 
 
 post '/deck/:id' do
+  log_out
   round = Round.create(deck_id: params[:id], user_id: session[:user_id])
   @deck = Deck.find(round.deck_id)
   session[:cards] = shuffle_deck(@deck) 
@@ -72,6 +80,7 @@ end
 
 
 get '/round/:id/:guess_id?' do
+  log_out
   @round = Round.find(params[:id])
   @deck = Deck.find(@round.deck_id)
 
@@ -95,6 +104,7 @@ end
 
 
 post '/card/:id/:round_id' do
+  log_out
   @current_card = Card.find(params[:id])
   @round = Round.find(params[:round_id])
   @guess = Guess.new(round_id: @round.id, guess_input: params["guess_input"]) 

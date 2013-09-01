@@ -7,7 +7,7 @@
 
 
   <form action="/user/login" method="post">
-  
+   <p> <%= @failed_login_message %> </p>
   <tr><p> Please Login: </p>
   <td><input type="text" name="email" placeholder = "email"></td>
   <tr><td><input type="password" name="password" placeholder="password"></td>

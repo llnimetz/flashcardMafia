@@ -20,6 +20,12 @@ helpers do
     password == password_reconfirm
   end
 
+  def login_control
+    unless logged_in? 
+      redirect to '/'
+    end
+  end
+
 
   def shuffle_deck(deck)
     to_shuffle = deck.cards.dup
