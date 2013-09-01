@@ -1,6 +1,17 @@
 enable :session
 require 'csv'
 
+get '/create_deck' do
+  erb :create_deck
+end
+
+post '/create_deck' do
+  new_deck = Deck.create(title: params[:title])
+  new_deck.cards << Card.create(question: params[:question], answer: params[:answer])
+  new_deck.cards << Card.create(question: params[:question2], answer: params[:answer2])
+  new_deck.cards << Card.create(question: params[:question3], answer: params[:answer3])
+  erb redirect to '/'
+end
 get '/' do
   if logged_in?
     redirect to '/home'

@@ -1,11 +1,12 @@
 <div class="container">
-<a href="/home/history">View previous round stats</a>
-<br><a href="/logout">Logout</a>
+<p><a href="/home/history">View previous round stats</a></p>
+<p><a href="/create_deck">Create a custom deck</a></p>
+<p><a href="/logout">Logout</a></p>
 <!-- <form method="get" action="/home/history">
 <input type="submit" value= "view history" name="history">
 </form> -->
 
-<section id="deck_selection_display">
+<p><section id="deck_selection_display">
   <h3>Select a deck:</h3>
 <% @deck.each do |d| %>
 <%= d.title %>:
@@ -14,7 +15,7 @@
 </form>
 <br>
 <% end %>
-</section>
+</section></p>
 
 </div>
 
