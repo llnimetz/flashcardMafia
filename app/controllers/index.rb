@@ -85,7 +85,6 @@ get '/round/stats/:id' do
   @round = Round.find(params[:id])
   @stats = @round.guesses
 
-
   erb :round_stats
 end
 
@@ -120,7 +119,6 @@ get '/round/:id/:guess_id?' do
     @current_card = Card.find(set_current_card)
     erb :play_card
   end
-
 end
 
 
@@ -128,7 +126,7 @@ post '/card/:id/:round_id' do
   log_out
   @current_card = Card.find(params[:id])
   @round = Round.find(params[:round_id])
-  @guess = Guess.new(round_id: @round.id, guess_input: params["guess_input"]) 
+  @guess = Guess.new(round_id: @round.id, card_id: @current_card.id, guess_input: params["guess_input"]) 
   
   if @current_card.answer.downcase == @guess.guess_input.downcase
     @guess.result = true
