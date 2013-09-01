@@ -141,3 +141,19 @@ post '/card/:id/:round_id' do
   @guess.save
   redirect "/round/#{@round.id}/#{@guess.id}"
 end
+
+########### Deck Creation form and logic #############
+
+get '/create_deck' do
+  #deck creation form
+  erb :create_deck
+end
+
+post '/create_deck' do
+  #deck creation
+  new_deck = Deck.create(title: params[:title])
+  new_deck.cards << Card.create(question: params[:question], answer: params[:answer])
+  new_deck.cards << Card.create(question: params[:question2], answer: params[:answer2])
+  new_deck.cards << Card.create(question: params[:question3], answer: params[:answer3])
+  redirect to '/'
+end
