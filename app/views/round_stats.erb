@@ -1,3 +1,4 @@
 <% @stats.each do |s| %>
 <h2>Your answer was: <%= s.guess_input %></h2>
+<h2>The correct answer is: <%= find_card_answer(s) %></h2>
 <% end %>

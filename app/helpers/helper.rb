@@ -41,4 +41,11 @@ helpers do
     session[:cards].pop
   end
 
+  def find_card_answer(guess)
+    p guess.card_id
+    p '*' * 200
+    card = Card.find(guess.card_id)
+    card.answer
+  end
+
 end
