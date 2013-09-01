@@ -1,44 +1,36 @@
 <div class="container">
   <h1>Welcome to Flashcard Generator!</h1>
+  <p> <%= @failed_login_message %> </p>
+  <div class="login">
+    <table >
+      <form action="/user/login" method="post">
+        <tr><p> LOGIN: </p>
+        <td><input type="text" name="email" placeholder = "email"></td>
+        <tr><td><input type="password" name="password" placeholder="password"></td>
+         <tr> <td class="button"><input type="Submit" value="Login"></td>
+      </form>
+      <% if @valid  %>
+      <%= "Username and password invalid"%>
+      <%end%>
+    </table>
+  </div>
+  <div class="signin">
+    <table >
+      <p><%= @failed_password %></p>
+      <% unless @broadcast.nil?  %> 
+      <p> <%= @broadcast[:email][0]  %> </p>
+      <% end %> 
 
-
-<table >
-
-
-
-  <form action="/user/login" method="post">
-   <p> <%= @failed_login_message %> </p>
-  <tr><p> Please Login: </p>
-  <td><input type="text" name="email" placeholder = "email"></td>
-  <tr><td><input type="password" name="password" placeholder="password"></td>
-   <tr> <td><input type="Submit" value="Login"></td>
-  </form>
-  <% if @valid  %>
-  <%= "Username and password invalid"%>
-  <%end%>
-</table>
-
-<br>
-
-
-<table >
-  <p><%= @failed_password %></p>
-  <% unless @broadcast.nil?  %> 
-  <p> <%= @broadcast[:email][0]  %> </p>
-  <% end  %> 
- 
-
-  <form action="/user/create" method="post">  
-  <tr><p> Please Signup: </p>
-  <td><input type="text" name="email" placeholder = "email" value=<%= @email%>></td>
-  <tr><td><input type="password" name="password" placeholder="password"></td>
-  <tr><td><input type="password" name="password_reconfirm" placeholder="Reconfirm Password"></td>
-  <tr><td><input type="Submit" value="Signup!"></td>
-  </form>
-</table>
-
-
-  </form>
-</table>
-
+      <form action="/user/create" method="post">  
+        <tr><p> SIGNIN: </p>
+        <td><input type="text" name="email" placeholder = "email" value=<%= @email%>></td>
+        <tr><td><input type="password" name="password" placeholder="password"></td>
+        <tr><td><input type="password" name="password_reconfirm" placeholder="Reconfirm Password"></td>
+        <tr><td class="button"><input type="Submit" value="Signup!"></td>
+      </form>
+    </table>
+</div>
+<div></div>
+<div class="footer">
+  <p>(c) FlashMafia Partners 2013</p>
 </div>
