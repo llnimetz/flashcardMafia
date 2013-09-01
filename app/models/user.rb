@@ -2,10 +2,15 @@ require 'bcrypt'
 
 class User < ActiveRecord::Base
   include BCrypt
+  validates :password_hash, :presence =>  { :message => "Password required" }
+  validates :password_hash, length: { minimum: 2,
+            :message => "Password required" }
+  validates :email, :presence => { :message => "Email required" }
+  validates :email, :uniqueness => { :message => "Sorry that email is already in use" }
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
+            :message => "Please enter a valid email" }          
+ 
 
-  validates :email, presence: true
-   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
-  validates :password_hash, presence: true 
 
 
   # Remember to create a migration!

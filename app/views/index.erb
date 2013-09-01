@@ -22,9 +22,13 @@
 
 
 <table >
-  <p> <%= @broadcast %> </p>
-  <form action="/user/create" method="post">
-  
+  <p><%= @failed_password %></p>
+  <% unless @broadcast.nil?  %> 
+  <p> <%= @broadcast[:email][0]  %> </p>
+  <% end  %> 
+ 
+
+  <form action="/user/create" method="post">  
   <tr><p> Please Signup: </p>
   <td><input type="text" name="email" placeholder = "email" value=<%= @email%>></td>
   <tr><td><input type="password" name="password" placeholder="password"></td>

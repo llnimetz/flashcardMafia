@@ -6,8 +6,7 @@ get '/' do
     redirect to '/home'
   else
     erb :index
-  end
-
+  end                                                                                                                                               
 end
 
 post '/user/create' do
@@ -16,6 +15,7 @@ post '/user/create' do
     new_user = User.new(email: params[:email]) 
     new_user.password = params[:password]  
       if new_user.save
+        session[:user_id] = new_user.id
         redirect to "/home"
       else 
         @broadcast = new_user.errors.messages
@@ -23,7 +23,7 @@ post '/user/create' do
       end
   else 
     @email = params[:email]
-    @failed_login_message = "Passwords do not match. Please try again!"
+    @failed_password = "Passwords do not match. Please try again!"
 
     erb :index
   end
@@ -34,15 +34,19 @@ end
 
 post '/user/login' do 
 
- @user = User.find_by_email(params[:email])
-    if @user.password == params[:password]
-      session[:user_id] = @user.id
-      redirect '/home'
-    else
+  if @user.nil? 
+    @failed_login_message = "Cannot recognize email or password. Please try again"
+    erb :index
+  else 
+   @user = User.find_by_email(params[:email])
+      if @user.password == params[:password]
+        session[:user_id] = @user.id
+        redirect '/home'
+      else
 
-      redirect to '/'
-    end
-
+        redirect to '/'
+      end
+  end
 end
 
 
