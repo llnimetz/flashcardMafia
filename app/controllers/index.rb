@@ -73,7 +73,7 @@ end
 
 
 post '/deck/:id' do
-  log_out
+  login_control
   round = Round.create(deck_id: params[:id], user_id: session[:user_id])
   @deck = Deck.find(round.deck_id)
   session[:cards] = shuffle_deck(@deck) 
@@ -81,7 +81,7 @@ post '/deck/:id' do
 end
 
 get '/round/stats/:id' do
-  log_out
+  login_control
   @round = Round.find(params[:id])
   @stats = @round.guesses
 
@@ -90,7 +90,7 @@ end
 
 
 get '/round/:id/:guess_id?' do
-  log_out
+  login_control
   @round = Round.find(params[:id])
   @deck = Deck.find(@round.deck_id)
 
@@ -123,7 +123,7 @@ end
 
 
 post '/card/:id/:round_id' do
-  log_out
+  login_control
   @current_card = Card.find(params[:id])
   @round = Round.find(params[:round_id])
   @guess = Guess.new(round_id: @round.id, card_id: @current_card.id, guess_input: params["guess_input"]) 
