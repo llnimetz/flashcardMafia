@@ -78,19 +78,38 @@ get '/round/:id/:guess_id?' do
   if params[:guess_id]
     @guess = Guess.find(params[:guess_id])
     if @guess.result == true
-      @result = erb :result_page_correct, :layout => false
+      @result = erb :_result_page_correct, :layout => false
     else
-      @result = erb :result_page_incorrect, :layout => false
+      @result = erb :_result_page_incorrect, :layout => false
     end
   end
 
   if session[:cards].empty?
+    @stats = @round.guesses
+    @correct = 0
+    @incorrect = 0
+    @stats.each do |s|
+      if s.result == true
+        @correct += 1
+      else 
+        @incorrect += 1
+      end
+    end
     erb :finished_round
   else
     @current_card = Card.find(set_current_card)
     erb :play_card
   end
 
+end
+
+
+get '/round/:id/stats' do
+  @round = Round.find(params[:id])
+  @stats = @round.guesses
+  
+
+  erb :_round_stats
 end
 
 
