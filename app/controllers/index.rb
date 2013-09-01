@@ -95,9 +95,9 @@ get '/round/:id/:guess_id?' do
   if params[:guess_id]
     @guess = Guess.find(params[:guess_id])
     if @guess.result == true
-      @result = erb :_result_page_correct, :layout => false
+      @result = erb :result_page_correct, :layout => false
     else
-      @result = erb :_result_page_incorrect, :layout => false
+      @result = erb :result_page_incorrect, :layout => false
     end
   end
 
