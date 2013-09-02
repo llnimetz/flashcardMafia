@@ -1,6 +1,9 @@
 enable :session
 require 'csv'
 
+########### User login, creation, validatio #############
+
+
 get '/' do
   if logged_in?
     redirect to '/home'
@@ -9,8 +12,8 @@ get '/' do
   end                                                                                                                                               
 end
 
-post '/user/create' do
 
+post '/user/create' do
   if confirm_password?(params[:password], params[:password_reconfirm]) 
     new_user = User.new(email: params[:email]) 
     new_user.password = params[:password]  
@@ -27,8 +30,6 @@ post '/user/create' do
 
     erb :index
   end
-
-  
 end
 
 
@@ -47,6 +48,7 @@ post '/user/login' do
   end
 end
 
+########### User homepages #############
 
 
 get '/home' do 
@@ -73,6 +75,8 @@ get '/logout' do
   redirect to '/'
 end
 
+########### Round creation and game logic #############
+
 
 post '/deck/:id' do
   login_control
@@ -81,6 +85,7 @@ post '/deck/:id' do
   session[:cards] = shuffle_deck(@deck) 
   redirect "/round/#{round.id}/"
 end
+
 
 get '/round/stats/:id' do
   login_control
@@ -142,10 +147,12 @@ end
 
 ########### Deck Creation form and logic #############
 
+
 get '/create_deck' do
   #deck creation form
   erb :create_deck
 end
+
 
 post '/create_deck' do
   #deck creation
