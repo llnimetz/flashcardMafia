@@ -1,10 +1,10 @@
+/*merged ok now: tester test edit*/
+
 body {
 	
 	background-image: url('/fabric_plaid.png');
     background-repeat: repeat;
 }
-
-/*another line here.. show conflict*/
 
 .container {
   margin: 100px auto;
