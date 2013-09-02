@@ -33,19 +33,17 @@ end
 
 
 post '/user/login' do 
-
+  @user = User.find_by_email(params[:email])
   if @user.nil? 
     @failed_login_message = "Cannot recognize email or password. Please try again"
     erb :index
   else 
-   @user = User.find_by_email(params[:email])
-      if @user.password == params[:password]
-        session[:user_id] = @user.id
-        redirect '/home'
-      else
-
-        redirect to '/'
-      end
+    if @user.password == params[:password]
+      session[:user_id] = @user.id
+      redirect '/home'
+    else
+      redirect to '/'
+    end
   end
 end
 
